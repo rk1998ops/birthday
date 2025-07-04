@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday!</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      background: linear-gradient(270deg, #ffe6e6, #ffccff, #ffe6f0, #fff0f5);
+      background-size: 800% 800%;
+      animation: gradientShift 15s ease infinite;
+      color: #333;
+      padding: 20px;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #ff3399;
+      animation: pulse 2s infinite;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin: 10px 0;
+      font-weight: normal;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); color: #ff3399; }
+      50% { transform: scale(1.05); color: #ff66cc; }
+    }
+
+    .emoji-container {
+      margin: 30px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .emoji {
+      font-size: 2.5em;
+      cursor: pointer;
+      transition: transform 0.3s, filter 0.3s;
+    }
+
+    .emoji:hover {
+      transform: scale(1.4) rotate(10deg);
+      filter: drop-shadow(0 0 5px #ff99cc);
+    }
+
+    .photo-display {
+      margin-top: 30px;
+      display: none;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .photo-display img {
+      max-width: 90%;
+      max-height: 400px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+
+    .photo-display img:hover {
+      transform: scale(1.02);
+    }
+
+    .description {
+      margin-top: 12px;
+      font-size: 1.2em;
+      color: #555;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    #musicBtn {
+      padding: 12px 28px;
+      font-size: 1em;
+      border: none;
+      border-radius: 25px;
+      background: #ff66cc;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+
+    #musicBtn:hover {
+      background: #e60073;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2em; }
+      .emoji { font-size: 2em; }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="birthdayMusic" loop>
+    <source src="song2.m4a" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <h2>Follow the instructions 👇</h2>
+  <h2>Click the button to start the music 🎶</h2>
+
+  <button id="musicBtn" onclick="toggleMusic()">▶️ Play Music</button>
+
+  <h1>🎉 😘😚💋 Happy Birthday Mote 🥰 ❤️‍🔥🎂</h1>
+  <h2>Click an emoji below to reveal a memory</h2>
+
+  <div class="emoji-container">
+    <span class="emoji" onclick="showPhoto(0)">🎁</span>
+    <span class="emoji" onclick="showPhoto(1)">🎈</span>
+    <span class="emoji" onclick="showPhoto(2)">🍰</span>
+    <span class="emoji" onclick="showPhoto(3)">🎂</span>
+    <span class="emoji" onclick="showPhoto(4)">🧁</span>
+    <span class="emoji" onclick="showPhoto(5)">🎊</span>
+    <span class="emoji" onclick="showPhoto(6)">💐</span>
+    <span class="emoji" onclick="showPhoto(7)">🎉</span>
+    <span class="emoji" onclick="showPhoto(8)">📸</span>
+  </div>
+
+  <div class="photo-display" id="photoDisplay">
+    <img id="photo" src="" alt="Birthday Moment">
+    <div class="description" id="description"></div>
+  </div>
+
+  <script>
+    const photos = [
+      { img: "img3.jpg", desc: "Gift for the birthday star!" },
+      { img: "img6.jpg", desc: "Colorful wings to lift your mood." },
+      { img: "img2.jpg", desc: "Cake is not there but breakfast is ready!" },
+      { img: "img1.jpg", desc: "Cake is not there but I am there for you beta!" },
+      { img: "img9.jpg", desc: "Ice cream is not there but ice is all around." },
+      { img: "img4.jpg", desc: "Family is there to celebrate!" },
+      { img: "img10.jpg", desc: "To a fresh start." },
+      { img: "img5.jpg", desc: "Let the party begin!" },
+      { img: "img7.jpg", desc: "A beautiful memory captured!" }
+    ];
+
+    function showPhoto(index) {
+      const photoDisplay = document.getElementById("photoDisplay");
+      const photo = document.getElementById("photo");
+      const description = document.getElementById("description");
+
+      photo.src = photos[index].img;
+      description.textContent = photos[index].desc;
+      photoDisplay.style.display = "block";
+    }
+
+    const audio = document.getElementById("birthdayMusic");
+    const musicBtn = document.getElementById("musicBtn");
+
+    function toggleMusic() {
+      if (audio.paused) {
+        audio.play();
+        musicBtn.textContent = "⏸️ Pause Music";
+      } else {
+        audio.pause();
+        musicBtn.textContent = "▶️ Play Music";
+      }
+    }
+
+    window.addEventListener('load', () => {
+      const playAttempt = audio.play();
+      if (playAttempt !== undefined) {
+        playAttempt.then(() => {
+          musicBtn.textContent = "⏸️ Pause Music";
+        }).catch(() => {
+          musicBtn.textContent = "▶️ Play Music";
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
