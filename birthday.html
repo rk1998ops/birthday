@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: linear-gradient(to right, #ffe6e6, #ffccff);
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #ff3399;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); color: #ff3399; }
+      50% { transform: scale(1.1); color: #ff66cc; }
+    }
+
+    .emoji-container {
+      margin: 20px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .emoji {
+      font-size: 2em;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .emoji:hover {
+      transform: scale(1.4);
+    }
+
+    .photo-display {
+      margin-top: 30px;
+      display: none;
+    }
+
+    .photo-display img {
+      max-width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    .description {
+      margin-top: 10px;
+      font-size: 1.1em;
+      color: #444;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+ <audio id="birthdayMusic" loop>
+  <source src="song2.m4a" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+ <h2> Follow the instructions.</h2>
+ <h2>Play the music </h2>
+
+<button id="musicBtn" onclick="toggleMusic()" style="padding: 10px 20px; font-size: 16px; margin-top: 20px;">
+  ▶️ Play Music
+</button>
+
+  <h1>🎉 😘😚💋Happy Birthday Mote 🥰 ❤️‍🔥🎂</h1>
+
+<h2>Press the emojis / icons to reveal memories</h2>
+
+  <div class="emoji-container">
+    <span class="emoji" onclick="showPhoto(0)">🎁</span>
+    <span class="emoji" onclick="showPhoto(1)">🎈</span>
+    <span class="emoji" onclick="showPhoto(2)">🍰</span>
+    <span class="emoji" onclick="showPhoto(3)">🎂</span>
+    <span class="emoji" onclick="showPhoto(4)">🧁</span>
+    <span class="emoji" onclick="showPhoto(5)">🎊</span>
+    <span class="emoji" onclick="showPhoto(6)">💐</span>
+    <span class="emoji" onclick="showPhoto(7)">🎉</span>
+    <span class="emoji" onclick="showPhoto(8)">📸</span>
+  </div>
+
+  <div class="photo-display" id="photoDisplay">
+    <img id="photo" src="" alt="Birthday Moment">
+    <div class="description" id="description"></div>
+  </div>
+
+  <script>
+    const photos = [
+      { img: "img3.jpg", desc: "Gift for the birthday star!" },
+      { img: "img6.jpg", desc: "Colorful wings to lift your mood." },
+      { img: "img2.jpg", desc: "Cake is not there but breakfast is ready!" },
+      { img: "img1.jpg", desc: "Cake is not there but i am there for you beta!" },
+      { img: "img9.jpg", desc: "Ice cream is not there but ice is all around" },
+      { img: "img4.jpg", desc: "Family is there to celebrate!" },
+      { img: "img10.jpg", desc: "To a fresh start." },
+      { img: "img5.jpg", desc: "Let the party begin!" },
+      { img: "img7.jpg", desc: "A beautiful memory captured!" }
+    ];
+
+    function showPhoto(index) {
+      const photoDisplay = document.getElementById("photoDisplay");
+      const photo = document.getElementById("photo");
+      const description = document.getElementById("description");
+
+      photo.src = photos[index].img;
+      description.textContent = photos[index].desc;
+      photoDisplay.style.display = "block";
+    }
+  </script>
+
+<script>
+  const audio = document.getElementById("birthdayMusic");
+  const musicBtn = document.getElementById("musicBtn");
+
+  function toggleMusic() {
+    if (audio.paused) {
+      audio.play();
+      musicBtn.textContent = "⏸️ Pause Music";
+    } else {
+      audio.pause();
+      musicBtn.textContent = "▶️ Play Music";
+    }
+  }
+
+  // Optional: Try autoplay and update button state
+  window.addEventListener('load', () => {
+    const playAttempt = audio.play();
+    if (playAttempt !== undefined) {
+      playAttempt.then(() => {
+        musicBtn.textContent = "⏸️ Pause Music";
+      }).catch(() => {
+        musicBtn.textContent = "▶️ Play Music";
+      });
+    }
+  });
+</script>
+
+
+</body>
+</html>
